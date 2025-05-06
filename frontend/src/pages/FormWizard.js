@@ -1,11 +1,12 @@
 // src/components/FormWizard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StepOne from '../components/StepOne';
 import StepTwo from '../components/StepTwo';
 import StepThree from '../components/StepThree';
 import StepFour from '../components/StepFour';
 import StepFive from '../components/StepFive';
 import { Container, Box, Stepper, Step, StepLabel } from '@mui/material';
+import { getVehicleTypes } from '../utils/api';
 
 const FormWizard = () => {
   const [step, setStep] = useState(0);
@@ -20,6 +21,8 @@ const FormWizard = () => {
     endDate: '',
   });
 
+  const [vehicleTypes, setVehicleTypes] = useState([]);
+
   const nextStep = () => setStep((prev) => Math.min(prev + 1, steps.length - 1));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 0));
 
@@ -31,6 +34,16 @@ const FormWizard = () => {
     'Booking Dates'
   ];
 
+  useEffect(() => {
+    const fetchVehicleTypes = async () => {
+      if (formData.wheels) {
+        const types = await getVehicleTypes(formData.wheels);
+        setVehicleTypes(types);
+      }
+    };
+    fetchVehicleTypes();
+  }, [formData.wheels]);
+
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
       case 0:
@@ -38,7 +51,7 @@ const FormWizard = () => {
       case 1:
         return <StepTwo next={nextStep} prev={prevStep} data={formData} setData={setFormData} />;
       case 2:
-        return <StepThree next={nextStep} prev={prevStep} data={formData} setData={setFormData} />;
+        return <StepThree next={nextStep} prev={prevStep} data={formData} setData={setFormData} vehicleTypes={vehicleTypes} />;
       case 3:
         return <StepFour next={nextStep} prev={prevStep} data={formData} setData={setFormData} />;
       case 4:

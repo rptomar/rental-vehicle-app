@@ -9,7 +9,7 @@ const schema = yup.object({
   vehicleType: yup.string().required('Please select a vehicle type'),
 });
 
-const StepThree = ({ next, data, setData, types }) => {
+const StepThree = ({ next, data, setData, vehicleTypes }) => {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ const StepThree = ({ next, data, setData, types }) => {
       <FormControl component="fieldset" error={!!errors.vehicleType}>
         <FormLabel>Vehicle Type</FormLabel>
         <RadioGroup {...register('vehicleType')}>
-          {types.map((type) => (
+          {vehicleTypes.map((type) => (
             <FormControlLabel key={type.id} value={type.id} control={<Radio />} label={type.name} />
           ))}
         </RadioGroup>
