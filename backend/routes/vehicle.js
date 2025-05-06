@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   res.send("api is ready");
 });
 router.get('/types', getVehicleTypes);
-router.get('/vehicles/:typeId', getVehicles);
+router.get('/vehicles', getVehicles);
 router.post('/book', submitBooking);
 
 module.exports = router;

@@ -21,16 +21,21 @@ const StepThree = ({ next, data, setData, vehicleTypes }) => {
 
   const onSubmit = (formData) => {
     setData({ ...data, ...formData });
-    next();
+    next(formData.vehicleType);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl component="fieldset" error={!!errors.vehicleType}>
         <FormLabel>Vehicle Type</FormLabel>
-        <RadioGroup {...register('vehicleType')}>
+        <RadioGroup>
           {vehicleTypes.map((type) => (
-            <FormControlLabel key={type.id} value={type.id} control={<Radio />} label={type.name} />
+            <FormControlLabel
+              key={type.id}
+              value={type.id}
+              control={<Radio {...register('vehicleType')} />}
+              label={type.name}
+            />
           ))}
         </RadioGroup>
         <FormHelperText>{errors.vehicleType?.message}</FormHelperText>

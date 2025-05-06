@@ -28,9 +28,17 @@ const StepTwo = ({ next, data, setData }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl component="fieldset" error={!!errors.wheels}>
         <FormLabel>Number of Wheels</FormLabel>
-        <RadioGroup row {...register('wheels')}>
-          <FormControlLabel value="2" control={<Radio />} label="2" />
-          <FormControlLabel value="4" control={<Radio />} label="4" />
+        <RadioGroup row>
+          <FormControlLabel
+            value="2"
+            control={<Radio {...register('wheels')} />}
+            label="2"
+          />
+          <FormControlLabel
+            value="4"
+            control={<Radio {...register('wheels')} />}
+            label="4"
+          />
         </RadioGroup>
         <FormHelperText>{errors.wheels?.message}</FormHelperText>
       </FormControl>

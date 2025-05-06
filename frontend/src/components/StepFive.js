@@ -1,11 +1,11 @@
 // StepFive.js
-import React, { useState } from 'react';
+import React from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { Button, TextField, Box, Typography } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import dayjs from 'dayjs';
 
 const schema = yup.object({
   startDate: yup.date().required('Start date required'),
@@ -15,7 +15,7 @@ const schema = yup.object({
     .min(yup.ref('startDate'), 'End date must be after start date'),
 });
 
-const StepFive = ({ next, data, setData }) => {
+const StepFive = ({ next, data, setData, onBook }) => {
   const {
     control,
     handleSubmit,
@@ -30,7 +30,8 @@ const StepFive = ({ next, data, setData }) => {
 
   const onSubmit = (formData) => {
     setData({ ...data, ...formData });
-    next();
+    onBook({ ...data, ...formData });
+    
   };
 
   return (
@@ -42,15 +43,11 @@ const StepFive = ({ next, data, setData }) => {
           control={control}
           render={({ field }) => (
             <DatePicker
-              label="Start Date"
-              {...field}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!errors.startDate}
-                  helperText={errors.startDate?.message}
-                />
-              )}
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              placeholderText="Start Date"
+              dateFormat="yyyy/MM/dd"
+              className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
             />
           )}
         />
@@ -59,15 +56,11 @@ const StepFive = ({ next, data, setData }) => {
           control={control}
           render={({ field }) => (
             <DatePicker
-              label="End Date"
-              {...field}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!errors.endDate}
-                  helperText={errors.endDate?.message}
-                />
-              )}
+              selected={field.value}
+              onChange={(date) => field.onChange(date)}
+              placeholderText="End Date"
+              dateFormat="yyyy/MM/dd"
+              className={`form-control ${errors.endDate ? 'is-invalid' : ''}`}
             />
           )}
         />

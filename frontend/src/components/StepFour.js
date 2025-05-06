@@ -9,7 +9,7 @@ const schema = yup.object({
   modelId: yup.string().required('Please select a vehicle model'),
 });
 
-const StepFour = ({ next, data, setData, models }) => {
+const StepFour = ({ next, data, setData, vehicleModels }) => {
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const StepFour = ({ next, data, setData, models }) => {
   });
 
   const onSubmit = (formData) => {
-    setData({ ...data, ...formData });
+    setData({ ...data, vehicleId: formData.modelId });
     next();
   };
 
@@ -28,9 +28,14 @@ const StepFour = ({ next, data, setData, models }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl component="fieldset" error={!!errors.modelId}>
         <FormLabel>Vehicle Model</FormLabel>
-        <RadioGroup {...register('modelId')}>
-          {models.map((model) => (
-            <FormControlLabel key={model.id} value={model.id} control={<Radio />} label={model.name} />
+        <RadioGroup>
+          {vehicleModels?.map((model) => (
+            <FormControlLabel
+              key={model.id}
+              value={model.id}
+              control={<Radio {...register('modelId')} />}
+              label={model.model}
+            />
           ))}
         </RadioGroup>
         <FormHelperText>{errors.modelId?.message}</FormHelperText>

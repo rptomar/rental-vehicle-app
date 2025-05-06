@@ -12,7 +12,10 @@ exports.getVehicleTypes = async (req, res) => {
 };
 
 exports.getVehicles = async (req, res) => {
-  const { typeId } = req.params;
+  const typeId  =  parseInt(req.query.typeId); 
+  if (isNaN(typeId)) {
+    return res.status(400).json({ message: 'Invalid models parameter' });
+  }
   const vehicles = await Vehicle.findAll({ where: { vehicleTypeId: typeId } });
   res.json(vehicles);
 };
