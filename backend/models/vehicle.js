@@ -1,24 +1,23 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+// backend/models/Vehicle.js
 module.exports = (sequelize, DataTypes) => {
-  class Vehicle extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  Vehicle.init({
-    name: DataTypes.STRING,
-    vehicleTypeId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Vehicle',
+  const Vehicle = sequelize.define('Vehicle', {
+    model: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
+
+  Vehicle.associate = (models) => {
+    Vehicle.belongsTo(models.VehicleType, {
+      foreignKey: 'vehicleTypeId',
+      as: 'type',
+    });
+
+    Vehicle.hasMany(models.Booking, {
+      foreignKey: 'vehicleId',
+      as: 'bookings',
+    });
+  };
+
   return Vehicle;
 };
