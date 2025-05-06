@@ -94,7 +94,7 @@ const FormWizard = () => {
         <Box mt={4}>
           {getStepContent(step)}
         </Box>
-        {bookingError && <div style={{ color: 'red' }}>{bookingError}</div>}
+        {bookingError && <div style={{ color: 'red' }}>Vehicle already booked in this range</div>}
         {bookingSuccess && <div style={{ color: 'green' }}>Booking successful!</div>}
       </Box>
     </Container>
