@@ -42,7 +42,9 @@ const StepTwo = ({ next, data, setData }) => {
         </RadioGroup>
         <FormHelperText>{errors.wheels?.message}</FormHelperText>
       </FormControl>
+      <div>
       <Button type="submit" variant="contained">Next</Button>
+      </div>
     </form>
   );
 };

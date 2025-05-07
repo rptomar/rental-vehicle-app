@@ -40,7 +40,9 @@ const StepFour = ({ next, data, setData, vehicleModels }) => {
         </RadioGroup>
         <FormHelperText>{errors.modelId?.message}</FormHelperText>
       </FormControl>
+      <div>
       <Button type="submit" variant="contained">Next</Button>
+      </div>
     </form>
   );
 };
