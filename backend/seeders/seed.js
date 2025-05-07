@@ -3,9 +3,9 @@ const models = require('../models');
 
 const seed = async () => {
   try {
-    await models.sequelize.sync({ force: true }); // drops and recreates all tables
+    await models.sequelize.sync({ force: true }); 
 
-    // Seed Vehicle Types
+   
     const vehicleTypes = await models.VehicleType.bulkCreate([
       { name: 'Hatchback', wheels: 4 },
       { name: 'SUV', wheels: 4 },
@@ -13,13 +13,13 @@ const seed = async () => {
       { name: 'Cruiser', wheels: 2 },
     ]);
 
-    // Map type names to IDs for vehicles
+    
     const typeMap = {};
     vehicleTypes.forEach((type) => {
       typeMap[type.name] = type.id;
     });
 
-    // Seed Vehicles
+    
     await models.Vehicle.bulkCreate([
       { model: 'Maruti Swift', vehicleTypeId: typeMap['Hatchback'] },
       { model: 'Hyundai i20', vehicleTypeId: typeMap['Hatchback'] },
@@ -31,10 +31,10 @@ const seed = async () => {
       { model: 'Bajaj Avenger', vehicleTypeId: typeMap['Cruiser'] },
     ]);
 
-    console.log('✅ Database seeded successfully!');
+    console.log(' Database seeded successfully!');
     process.exit(0);
   } catch (err) {
-    console.error('❌ Seeding failed:', err);
+    console.error(' Seeding failed:', err);
     process.exit(1);
   }
 };

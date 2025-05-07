@@ -2,11 +2,11 @@ const { VehicleType, Vehicle, Booking } = require('../models');
 const { Op } = require('sequelize');
 
 exports.getVehicleTypes = async (req, res) => {
-  const wheels = parseInt(req.query.wheels); // Accessing the query parameter
+  const wheels = parseInt(req.query.wheels); 
   if (isNaN(wheels)) {
     return res.status(400).json({ message: 'Invalid wheels parameter' });
   }
-  // Fetch vehicle types based on the number of wheels
+  
   const types = await VehicleType.findAll({ where: { wheels } });
   res.json(types);
 };

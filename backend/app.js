@@ -10,7 +10,7 @@ app.use(express.json());
 app.use('/api', vehicleRoutes);
 
 sequelize.authenticate()
-  .then(() => console.log('✅ MySQL connected successfully.'))
-  .catch((err) => console.error('❌ DB connection failed:', err));
+  .then(() => console.log('MySQL connected successfully.'))
+  .catch((err) => console.error('DB connection failed:', err));
 
 module.exports = app;
