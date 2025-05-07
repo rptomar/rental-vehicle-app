@@ -29,9 +29,13 @@ const StepFive = ({ next, data, setData, onBook }) => {
   });
 
   const onSubmit = (formData) => {
+    // Check for validation errors
+    if (Object.keys(errors).length > 0) {
+      return; // Prevent submission if there are errors
+    }
+    
     setData({ ...data, ...formData });
     onBook({ ...data, ...formData });
-    
   };
 
   return (
@@ -42,26 +46,36 @@ const StepFive = ({ next, data, setData, onBook }) => {
           name="startDate"
           control={control}
           render={({ field }) => (
-            <DatePicker
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-              placeholderText="Start Date"
-              dateFormat="yyyy/MM/dd"
-              className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
-            />
+            <>
+              <DatePicker
+                selected={field.value}
+                onChange={(date) => field.onChange(date)}
+                placeholderText="Start Date"
+                dateFormat="yyyy/MM/dd"
+                className={`form-control ${errors.startDate ? 'is-invalid' : ''}`}
+              />
+              {errors.startDate && (
+                <Typography color="error">{errors.startDate.message}</Typography>
+              )}
+            </>
           )}
         />
         <Controller
           name="endDate"
           control={control}
           render={({ field }) => (
-            <DatePicker
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-              placeholderText="End Date"
-              dateFormat="yyyy/MM/dd"
-              className={`form-control ${errors.endDate ? 'is-invalid' : ''}`}
-            />
+            <>
+              <DatePicker
+                selected={field.value}
+                onChange={(date) => field.onChange(date)}
+                placeholderText="End Date"
+                dateFormat="yyyy/MM/dd"
+                className={`form-control ${errors.endDate ? 'is-invalid' : ''}`}
+              />
+              {errors.endDate && (
+                <Typography color="error">{errors.endDate.message}</Typography>
+              )}
+            </>
           )}
         />
       </Box>
