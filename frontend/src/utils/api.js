@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api'; // Adjust as needed
+const API_BASE_URL = 'http://localhost:5000/api'; 
 
 // Get vehicle types by number of wheels (2 or 4)
 export const getVehicleTypes = async (wheels) => {

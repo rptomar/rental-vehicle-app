@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# 🚗 Vehicle Rental App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a full-stack Vehicle Rental App built with **React.js**, **Node.js**, **Express**, **MySQL**, **Sequelize**, **Material UI**, and **Tailwind CSS**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📁 Project Structure
 
-### `npm start`
+vehicle-rental-app/
+├── backend/ # Node.js backend with Express & Sequelize
+├── frontend/ # React frontend with Material UI
+├── README.md # Project documentation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Backend Setup (Node.js + Express + Sequelize + MySQL)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. Install Dependencies
 
-### `npm run build`
+```bash
+cd backend
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Configure Environment Variables
+Create a .env file inside the backend/ folder:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+DB_USER=postgres
+DB_USER=root
+DB_PASS=          # Leave blank if using default XAMPP setup
+DB_NAME=vehicle_rental
+DB_HOST=localhost
+DB_PORT=3306
+PORT=5000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start MySQL Server Using XAMPP
+Open XAMPP Control Panel
 
-### `npm run eject`
+Start Apache and MySQL modules
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Go to: http://localhost/phpmyadmin
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. Create the Database
+In phpMyAdmin, run the following SQL:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+CREATE DATABASE vehicle_rental;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. Seed Initial Data
+Run the seed script to populate vehicle types and models:
+node seeders/seed.js
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+6. Start the Server
+npm start                 # bcs i have installed nodemon to run nodemon
+Server running on port 5000
+Executing (default): SELECT 1+1 AS result
+✅ MySQL connected successfully.             #display if server and backend running successfully 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Frontend Setup (React + Material UI)
+1. Install Dependencies
+cd frontend
+npm install
 
-### Code Splitting
+2. Backend URL Setup
+Instead of a .env file, the backend base URL is configured in:
+frontend/src/utils/app.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. Start the React App
+npm start
+Frontend runs on: http://localhost:3000
 
-### Analyzing the Bundle Size
+✅ Application Features
+Step-by-step form with validation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Fetch vehicle types and models dynamically from the backend
 
-### Making a Progressive Web App
+Date range picker for booking dates
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Prevents overlapping bookings
 
-### Advanced Configuration
+Clean UI with Material UI + Tailwind
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+📬 API Endpoints
+GET /api/types?wheels=${wheels} – Fetch vehicle types (e.g., hatchback, cruiser)
 
-### Deployment
+GET /api/vehicles?typeId={typeId} – Fetch vehicles by type
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+POST /api/book – Submit a new booking request
 
-### `npm run build` fails to minify
+⚠️ Important Notes
+Always start MySQL in XAMPP before launching backend.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+No hardcoded values: all vehicle data comes from the backend.
+
+Both frontend and backend have input validation.
+
+Make sure seed.js runs successfully to initialize your database with sample data.
+
+
